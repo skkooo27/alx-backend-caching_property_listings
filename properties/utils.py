@@ -17,12 +17,12 @@ def get_redis_cache_metrics():
     info = redis_conn.info()
     hits = info.get('keyspace_hits', 0)
     misses = info.get('keyspace_misses', 0)
-    total = hits + misses
-    hit_ratio = (hits / total) * 100 if total > 0 else 0
+    total_requests = hits + misses
+    hit_ratio = (hits / total_requests) * 100 if total_requests > 0 else 0
     metrics = {
         'hits': hits,
         'misses': misses,
         'hit_ratio': hit_ratio
     }
-    logger.info(f"Cache metrics: {metrics}")
+    logger.error(f"Cache metrics: {metrics}")
     return metrics
